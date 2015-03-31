@@ -109,6 +109,23 @@ public class Test {
             System.out.println(foo);
         }
 
+        System.out.println("\n---Use of functional composition stuff---");
+        /*
+        Comparator<Food> healthComparator = (f1, f2)
+                -> (f1.getHealthRate() != f2.getHealthRate()
+                        ? f2.getHealthRate() - f1.getHealthRate()
+                        : f1.getName().compareTo(f2.getName()))
+        */
+        
+        Comparator<Food> healthComparator =
+                Comparator.comparing(Food::getHealthRate)
+                .reversed()
+                .thenComparing(Food::getName);
+        Collections.sort(funStuff, healthComparator);
+        for(Food foo : funStuff) {
+            System.out.println(foo);
+        }
+
         System.out.println("\n---Printing after sort by pizza obsession---");
         // a little bit confusing with the ternary conditions
         // don't show them unless they can handle it
